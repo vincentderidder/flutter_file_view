@@ -105,7 +105,7 @@ class _FileNetworkViewerState extends State<FileNetworkViewer> {
   double progressValue = 0.0;
 
   /// File size
-  String fileSize = '计算中...';
+  String fileSize = 'Berekenen...';
 
   @override
   void initState() {
@@ -113,6 +113,7 @@ class _FileNetworkViewerState extends State<FileNetworkViewer> {
 
     WidgetsBinding.instance!.addPostFrameCallback((callback) {
       loadData();
+      _download();
     });
   }
 
@@ -198,27 +199,27 @@ class _FileNetworkViewerState extends State<FileNetworkViewer> {
       },
       child: Text(btnName),
       style: ButtonStyle(
-        // 设置按钮上字体与图标的颜色
+        // Set the color of the font and icon on the button
         foregroundColor: MaterialStateProperty.resolveWith((states) {
           return widget.btnTitleColor ?? Colors.white;
         }),
-        // 背景颜色
+        // Background color
         backgroundColor: MaterialStateProperty.resolveWith((states) {
-          // 当按钮无法点击时 设置背景色
+          // Set the background color when the button cannot be clicked
           if (states.contains(MaterialState.disabled)) {
             return Colors.grey[350];
           } else {
             return widget.btnBgColor ?? Theme.of(context).primaryColor;
           }
         }),
-        // 设置水波纹颜色
+        // Set the water ripple color
         overlayColor: MaterialStateProperty.all(Colors.black26),
-        // 设置阴影
+        // Set shadow
         elevation: MaterialStateProperty.all(0),
-        //设置按钮的大小
+        //Set the size of the button
         minimumSize:
             MaterialStateProperty.all(Size(defaultWidth, defaultHeight)),
-        //设置边框
+        //Set border
         side: widget.borderSide == null
             ? null
             : MaterialStateProperty.all(widget.borderSide),
@@ -276,8 +277,8 @@ class _FileNetworkViewerState extends State<FileNetworkViewer> {
   ///
   String get btnName {
     return isDownload
-        ? widget.downloadTitle ?? '文件下载'
-        : widget.viewTitle ?? '文件查看';
+        ? widget.downloadTitle ?? 'Download'
+        : widget.viewTitle ?? 'View';
   }
 
   ///
@@ -315,7 +316,7 @@ class _FileNetworkViewerState extends State<FileNetworkViewer> {
   ///
   /// 获取网络文件大小
   ///
-  Future<String> getNetworkFileSize() async {
+  Future<String?> getNetworkFileSize() async {
     return await FlutterFileView.getFileSizeByNet(fileLink);
   }
 

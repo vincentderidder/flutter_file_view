@@ -63,7 +63,7 @@ class FlutterFileView {
   ///
   /// 获取网络资源文件大小
   ///
-  static Future<String> getFileSizeByNet(String fileUrl) async {
+  static Future<String?> getFileSizeByNet(String fileUrl) async {
     return await DownloadTool.getFileSize(fileUrl);
   }
 

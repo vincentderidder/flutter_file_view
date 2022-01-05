@@ -39,7 +39,7 @@ class DownloadTool {
           ? DownloadStatus.success
           : DownloadStatus.fail;
     } catch (e) {
-      debugPrint('服务器出错或网络连接失败！');
+      debugPrint('Server error or network connection failed!');
       return DownloadStatus.serviceErr;
     }
   }
@@ -49,7 +49,7 @@ class DownloadTool {
   ///
   /// 通过网络链接获取文件大小
   ///
-  static Future<String> getFileSize(String fileUrl) async {
+  static Future<String?> getFileSize(String fileUrl) async {
     try {
       Response response = await _dio().head(fileUrl);
 
@@ -63,12 +63,12 @@ class DownloadTool {
       });
 
       if (response.headers.toString().contains('content-length')) {
-        return '文件大小：${fileSize(size)}';
+        return 'File size: ${fileSize(size)}';
       } else {
-        return '文件大小获取失败';
+        return 'File size acquisition failed';
       }
     } catch (e) {
-      return '文件大小获取失败';
+      return 'File size acquisition failed';
     }
   }
 }
